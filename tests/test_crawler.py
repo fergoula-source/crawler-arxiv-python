@@ -76,6 +76,17 @@ class TestesCrawler(unittest.TestCase):
         with self.assertRaises(requests.HTTPError):
             obter_html(sessao, pagina=1, por_pagina=25)
 
+    def test_nao_aceita_coleta_parcial_acima_de_30(self):
+        """Solicitar 50 registros não pode retornar apenas 35 silenciosamente."""
+        with patch("crawler_arxiv.obter_html", side_effect=[
+            html_de_teste(1, 25),
+            html_de_teste(26, 10),
+            "<div id='dlpage'><dl></dl></div>",
+        ]) as buscar:
+            with self.assertRaisesRegex(RuntimeError, "35 de 50 registros solicitados"):
+                coletar_artigos(limite=50, por_pagina=25, atraso=0)
+        self.assertEqual(buscar.call_count, 3)
+
     def test_exige_no_minimo_30(self):
         with self.assertRaisesRegex(ValueError, "30 registros"):
             coletar_artigos(limite=20)

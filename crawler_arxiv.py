@@ -178,9 +178,9 @@ def coletar_artigos(limite: int = 35, por_pagina: int = 25, atraso: float = 3.0,
             time.sleep(atraso)
 
     df = pd.DataFrame(registros, columns=COLUNAS)
-    if len(df) < 30:
+    if len(df) < limite:
         raise RuntimeError(
-            f"Coleta insuficiente: {len(df)} registros. "
+            f"Coleta insuficiente: {len(df)} de {limite} registros solicitados. "
             "Verifique sua conexão, o bloqueio temporário do site e os seletores CSS."
         )
     return df
