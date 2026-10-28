@@ -1,0 +1,58 @@
+"""Testes locais sem acessar a internet."""
+import unittest
+from unittest.mock import patch
+
+from crawler_arxiv import extrair_artigos, coletar_artigos
+
+
+def html_de_teste(inicio: int, quantidade: int) -> str:
+    itens = []
+    for i in range(inicio, inicio + quantidade):
+        codigo = f"2610.{i:05d}"
+        itens.append(
+            f'<dt><a href="/abs/{codigo}" title="Abstract">arXiv:{codigo}</a></dt>'
+            f'<dd><div class="meta">'
+            f'<div class="mathjax list-title">Title:   Artigo   de teste {i}</div>'
+            f'<div class="list-authors"><a>Autor {i}</a></div>'
+            f'<div class="list-subjects">Subjects: Artificial Intelligence (cs.AI); Testes</div>'
+            f'</div></dd>'
+        )
+    return '<div id="dlpage"><dl>' + "".join(itens) + '</dl></div>
+
+
+class TestesCrawler(unittest.TestCase):
+    def test_extracao_e_classes_multiplas(self):
+        dados = extrair_artigos(html_de_teste(1, 2), pagina=1, data_coleta="2026-10-27")
+        self.assertEqual(len(dados), 2)
+        self.assertEqual(dados[0]["id_arxiv"], "2610.00001")
+        self.assertEqual(dados[0]["titulo"], "Artigo de teste 1")
+        self.assertEqual(dados[0]["primeiro_autor"], "Autor 1")
+        self.assertEqual(dados[0]["area_principal"], "Artificial Intelligence (cs.AI)")
+        self.assertEqual(dados[0]["url"], "https://arxiv.org/abs/2610.00001")
+
+    def test_ignora_entradas_sem_metadados(self):
+        html = ("<dl><dt><a href='/abs/2610.00001'>x</a></dt><dd></dd>"
+                "<dt><a href='/abs/2610.00002'>y</a></dt>"
+                "<dd><div class='list-title'>Title: Válido</div></dd></dl>")
+        dados = extrair_artigos(html, 1, "2026-10-27")
+        self.assertEqual(len(dados), 1)
+        self.assertEqual(dados[0]["titulo"], "Válido")
+        self.assertEqual(dados[0]["primeiro_autor"], "Não informado")
+
+    def test_paginacao_ate_35_registros(self):
+        with patch("crawler_arxiv.obter_html", side_effect=[
+            html_de_teste(1, 25), html_de_teste(26, 25)
+        ]) as mock:
+            df = coletar_artigos(limite=35, por_pagina=25, atraso=0)
+        self.assertEqual(len(df), 35)
+        self.assertEqual(df["id_arxiv"].nunique(), 35)
+        self.assertEqual(df["pagina"].value_counts().to_dict(), {1: 25, 2: 10})
+        self.assertEqual(mock.call_count, 2)
+
+    def test_exige_no_minimo_30(self):
+        with self.assertRaisesRegex(ValueError, "30 registros"):
+            coletar_artigos(limite=20)
+
+
+if __name__ == "__main__":
+    unittest.main()
