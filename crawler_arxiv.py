@@ -1,13 +1,4 @@
-"""Coletor educacional de artigos públicos do arXiv (cs.AI).
-
-Atividade: Construção de um Crawler com Parser e Análise de Editais Públicos.
-Foi escolhida a alternativa de preprints científicos do enunciado.
-
-Uso:
-    pip install -r requirements.txt
-    python crawler_arxiv.py
-    python crawler_arxiv.py --limite 40 --por-pagina 25
-"""
+"""Busca artigos de IA no arXiv e salva em CSV."""
 from __future__ import annotations
 
 import argparse
@@ -25,19 +16,19 @@ from urllib3.util.retry import Retry
 
 URL_BASE = "https://arxiv.org/list/cs.AI/recent"
 URL_ARTIGO = "https://arxiv.org/abs/"
-ARQUIVO_SAIDA = "editais_extraidos.csv"  # Nome conforme o enunciado; registros são artigos.
+ARQUIVO_SAIDA = "editais_extraidos.csv"  # nome pedido na atividade
 COLUNAS = [
     "id_arxiv", "titulo", "primeiro_autor", "area_principal", "url", "coletado_em", "pagina"
 ]
 
 
 def limpar_texto(texto: str) -> str:
-    """Remove espaços duplicados e quebras de linha do HTML."""
+    """Limpa os espaços do texto."""
     return " ".join(texto.split())
 
 
 def criar_sessao() -> requests.Session:
-    """Prepara HTTP com identificador e tentativas moderadas para erros transitórios."""
+    """Cria uma sessão para acessar o site."""
     sessao = requests.Session()
     sessao.headers.update({
         "User-Agent": "CrawlerAcademico/1.0 (pesquisa educacional; requests + BeautifulSoup)",
@@ -55,7 +46,7 @@ def criar_sessao() -> requests.Session:
 
 
 def obter_html(sessao: requests.Session, pagina: int, por_pagina: int) -> str:
-    """Busca uma página usando parâmetros GET `skip` e `show`."""
+    """Abre uma página do arXiv."""
     parametros = {"skip": (pagina - 1) * por_pagina, "show": por_pagina}
     resposta = sessao.get(URL_BASE, params=parametros, timeout=30)
     resposta.raise_for_status()
@@ -64,15 +55,10 @@ def obter_html(sessao: requests.Session, pagina: int, por_pagina: int) -> str:
 
 
 def analisar_artigo(dt: Tag, dd: Tag, pagina: int, data_coleta: str) -> dict | None:
-    """Converte o par <dt>/<dd> de um artigo em um dicionário estruturado.
-
-    Seletores de classe procuram apenas a classe estável; por exemplo,
-    `div.list-title` continua válido se o site adicionar a classe `mathjax`.
-    Se um campo opcional não existir, ele não interrompe a coleta.
-    """
+    """Pega os dados de um artigo."""
     ancora = dt.select_one("a[title='Abstract']")
     if ancora is None:
-        # Fallback caso o arXiv altere o atributo title.
+        # tenta pelo link também
         ancora = dt.find("a", href=re.compile(r"/abs/"))
     titulo_elemento = dd.select_one("div.list-title")
     if ancora is None or titulo_elemento is None:
@@ -113,18 +99,12 @@ def analisar_artigo(dt: Tag, dd: Tag, pagina: int, data_coleta: str) -> dict | N
 
 
 def extrair_artigos(html: str, pagina: int, data_coleta: str) -> list[dict]:
-    """Percorre as entradas HTML e ignora registros incompletos sem quebrar.
-
-    O site organiza cada artigo como um <dt> (identificador/link) seguido
-    por <dd> (metadados). Não dependemos de posições fixas nem de listas
-    separadas de títulos e autores que poderiam ficar desalinhadas.
-    """
+    """Procura os artigos no HTML."""
     soup = BeautifulSoup(html, "html.parser")
     itens = soup.select("#dlpage dl dt") or soup.select("dl dt")
     resultados = []
     for dt in itens:
-        # O <dd> deve ser o próximo elemento irmão do <dt>.
-        # Procurar qualquer <dd> posterior pode associar dados de outro artigo.
+        # pega só o dd desse artigo
         dd = dt.find_next_sibling()
         if dd is None or dd.name != "dd":
             continue
@@ -136,7 +116,7 @@ def extrair_artigos(html: str, pagina: int, data_coleta: str) -> list[dict]:
 
 def coletar_artigos(limite: int = 35, por_pagina: int = 25, atraso: float = 3.0,
                     sessao: requests.Session | None = None) -> pd.DataFrame:
-    """Percorre páginas até reunir ao menos `limite` registros únicos."""
+    """Junta os artigos de várias páginas."""
     if limite < 30:
         raise ValueError("A atividade exige, no mínimo, 30 registros.")
     if por_pagina not in (25, 50, 100):
