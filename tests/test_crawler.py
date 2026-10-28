@@ -17,7 +17,7 @@ def html_de_teste(inicio: int, quantidade: int) -> str:
             f'<div class="list-subjects">Subjects: Artificial Intelligence (cs.AI); Testes</div>'
             f'</div></dd>'
         )
-    return '<div id="dlpage"><dl>' + "".join(itens) + '</dl></div>
+    return '<div id="dlpage"><dl>' + "".join(itens) + '</dl></div>'
 
 
 class TestesCrawler(unittest.TestCase):
