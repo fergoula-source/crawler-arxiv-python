@@ -56,7 +56,7 @@ def obter_html(sessao: requests.Session, pagina: int, por_pagina: int) -> str:
 
 def analisar_artigo(dt: Tag, dd: Tag, pagina: int, data_coleta: str) -> dict | None:
     """Pega os dados de um artigo."""
-    ancora = dt.select_one("a[title='Abstract']")
+    ancora = dt.select_one("a[title='Abstract'][href*='/abs/']")
     if ancora is None:
         # tenta pelo link também
         ancora = dt.find("a", href=re.compile(r"/abs/"))

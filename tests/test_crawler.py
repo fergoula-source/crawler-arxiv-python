@@ -54,6 +54,21 @@ class TestesCrawler(unittest.TestCase):
         self.assertEqual(dados[0]["id_arxiv"], "2610.00002")
         self.assertEqual(dados[0]["titulo"], "Artigo correto")
 
+    def test_links_quebrados_e_link_alternativo(self):
+        html = (
+            '<dl>'
+            '<dt><a title="Abstract" href>Sem link</a></dt>'
+            '<dd><div class="list-title">Title: Ignorar</div></dd>'
+            '<dt><a title="Abstract" href="/pdf/2610.00099">Link errado</a>'
+            '<a href="/abs/2610.00002">Link certo</a></dt>'
+            '<dd><div class="list-title">Title: Artigo correto</div></dd>'
+            '</dl>'
+        )
+        dados = extrair_artigos(html, 1, "2026-10-28")
+        self.assertEqual(len(dados), 1)
+        self.assertEqual(dados[0]["id_arxiv"], "2610.00002")
+        self.assertEqual(dados[0]["titulo"], "Artigo correto")
+
     def test_paginacao_ate_35_registros(self):
         with patch("crawler_arxiv.obter_html", side_effect=[
             html_de_teste(1, 25), html_de_teste(26, 25)
