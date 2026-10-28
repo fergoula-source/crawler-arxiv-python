@@ -1,8 +1,9 @@
 """Testes locais sem acessar a internet."""
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
-from crawler_arxiv import extrair_artigos, coletar_artigos
+import requests
+from crawler_arxiv import extrair_artigos, coletar_artigos, obter_html
 
 
 def html_de_teste(inicio: int, quantidade: int) -> str:
@@ -48,6 +49,32 @@ class TestesCrawler(unittest.TestCase):
         self.assertEqual(df["id_arxiv"].nunique(), 35)
         self.assertEqual(df["pagina"].value_counts().to_dict(), {1: 25, 2: 10})
         self.assertEqual(mock.call_count, 2)
+
+    def test_parametros_get_da_segunda_pagina(self):
+        """A página 2 com show=25 precisa solicitar skip=25."""
+        sessao = Mock()
+        resposta = sessao.get.return_value
+        resposta.text = "<html>Teste</html>"
+        resposta.apparent_encoding = "utf-8"
+
+        html = obter_html(sessao, pagina=2, por_pagina=25)
+
+        self.assertEqual(html, "<html>Teste</html>")
+        sessao.get.assert_called_once_with(
+            "https://arxiv.org/list/cs.AI/recent",
+            params={"skip": 25, "show": 25},
+            timeout=30,
+        )
+        resposta.raise_for_status.assert_called_once_with()
+
+    def test_erro_http_nao_e_ignorado(self):
+        """Falhas HTTP devem ser expostas, e não gerar CSV incompleto."""
+        sessao = Mock()
+        sessao.get.return_value.raise_for_status.side_effect = requests.HTTPError(
+            "429 Too Many Requests"
+        )
+        with self.assertRaises(requests.HTTPError):
+            obter_html(sessao, pagina=1, por_pagina=25)
 
     def test_exige_no_minimo_30(self):
         with self.assertRaisesRegex(ValueError, "30 registros"):
