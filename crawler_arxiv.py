@@ -123,8 +123,10 @@ def extrair_artigos(html: str, pagina: int, data_coleta: str) -> list[dict]:
     itens = soup.select("#dlpage dl dt") or soup.select("dl dt")
     resultados = []
     for dt in itens:
-        dd = dt.find_next_sibling("dd")
-        if dd is None:
+        # O <dd> deve ser o próximo elemento irmão do <dt>.
+        # Procurar qualquer <dd> posterior pode associar dados de outro artigo.
+        dd = dt.find_next_sibling()
+        if dd is None or dd.name != "dd":
             continue
         artigo = analisar_artigo(dt, dd, pagina, data_coleta)
         if artigo:

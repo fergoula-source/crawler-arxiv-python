@@ -40,6 +40,20 @@ class TestesCrawler(unittest.TestCase):
         self.assertEqual(dados[0]["titulo"], "Válido")
         self.assertEqual(dados[0]["primeiro_autor"], "Não informado")
 
+    def test_nao_associa_metadados_ao_artigo_errado(self):
+        """Se um <dt> não tiver <dd>, não reutilizar o <dd> do próximo artigo."""
+        html = (
+            '<dl>'
+            '<dt><a href="/abs/2610.00001" title="Abstract">Primeiro</a></dt>'
+            '<dt><a href="/abs/2610.00002" title="Abstract">Segundo</a></dt>'
+            '<dd><div class="list-title">Title: Artigo correto</div></dd>'
+            '</dl>'
+        )
+        dados = extrair_artigos(html, pagina=1, data_coleta="2026-10-28")
+        self.assertEqual(len(dados), 1)
+        self.assertEqual(dados[0]["id_arxiv"], "2610.00002")
+        self.assertEqual(dados[0]["titulo"], "Artigo correto")
+
     def test_paginacao_ate_35_registros(self):
         with patch("crawler_arxiv.obter_html", side_effect=[
             html_de_teste(1, 25), html_de_teste(26, 25)
