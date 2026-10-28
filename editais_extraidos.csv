@@ -1,0 +1,36 @@
+﻿id_arxiv,titulo,primeiro_autor,area_principal,url,coletado_em,pagina
+2610.35868,Retriever-Free Retrieval: Navigating Documents with Decision Models,Chao Wan,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35868,2026-10-27,1
+2610.35865,Center-of-Mass Interpretation of Evolution Strategies,Akshat Gupta,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35865,2026-10-27,1
+2610.35847,Patient-specific rubric-based evaluation of large language models across longitudinal cancer care,Wei-Wei Zhang,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35847,2026-10-27,1
+2610.35802,Game theory of academic effort and hiring in the age of AI,Saptarshi Pal,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35802,2026-10-27,1
+2610.35773,A Unified Arena for LLM Agents across Diverse Eurogame,Fengrui Zhang,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35773,2026-10-27,1
+2610.35767,"Free to Look, Free to Reason: Simple LLM Harnesses Outdiagnose Hand-Crafted Root Cause Analysis Agents",Tingzhu Bi,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35767,2026-10-27,1
+2610.35761,Beyond Physical Illness: Can Clinical Narratives Reveal Emerging Mental Health Risks in Chronically Ill Patients?,Sudeshna Jana,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35761,2026-10-27,1
+2610.35753,CLOSURE: Cross-Channel Closure for Multivariate Time Series Anomaly Detection,Fan Xu,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35753,2026-10-27,1
+2610.35704,Explainable Multimodal AI Approach to Reduce Unnecessary Breast Biopsies,Sadam Hussain,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35704,2026-10-27,1
+2610.35690,EvoRouter: Cost-Efficient Multi-Agent Routing via Insight-Guided On-Policy Distillation,Yitao Xiao,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35690,2026-10-27,1
+2610.35607,VaLoP: Value Gradient Lookahead and Pullback for Reward-Guided Diffusion,Kwanyoung Kim,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35607,2026-10-27,1
+2610.35606,ArchiveLens: A Generative Spatial Knowledge Framework for Semantic Reconstruction of Historical Maps,Yanan Wu,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35606,2026-10-27,1
+2610.35598,Evolve on Graph: Self-Evolving Knowledge Graph Reasoning without Question Annotations,Zongyuan Sun,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35598,2026-10-27,1
+2610.35595,"Agentic Algorithm Design: LLMs that Propose, Formalise, and Prove Runtime Bounds for Evolutionary Algorithms in Lean",Per Kristian Lehre,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35595,2026-10-27,1
+2610.35593,SAP-ViT: A Self-Attributing Patch Vision Transformer for Medical Image Classification,Wei Zhang,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35593,2026-10-27,1
+2610.35586,Linear Probes Transfer from Base to Distilled Language Models despite Rotation,Marios Tsatsos,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35586,2026-10-27,1
+2610.35579,Infinity Machine: a self-improving AI agent for research,Harish Santhanalakshmi Ganesan,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35579,2026-10-27,1
+2610.35530,CANS: Capability-Preserving Neuron Steering for Large Language Models,Yucheng Wu,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35530,2026-10-27,1
+2610.35500,Test-Time Confidence Adaptation under RL-Induced Trajectory Shift,Zhenzhen Ren,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35500,2026-10-27,1
+2610.35486,ShutdownMod: Turning Any Trajectory into a Shutdown Evaluation,Param Biyani,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35486,2026-10-27,1
+2610.35464,"EvoBench: An Evolving, Diagnostic Benchmark Framework for Environmental Modeling",Yiming Sun,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35464,2026-10-27,1
+2610.35453,Beyond Federated Learning: Decentralized Agentic Systems for Self-Evolving Clinical Intelligence,Haoyuan Li,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35453,2026-10-27,1
+2610.35439,Omni-InteractScope: Benchmarking Proactive and Agentic Interaction in Continuous Omnimodal Streams,Yinsong Yan,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35439,2026-10-27,1
+2610.35434,Skill$^{\infty}$: Recursive Self-Improvement for Agent Skill Optimization,Wangcheng Tao,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35434,2026-10-27,1
+2610.35430,Faithful Explanations under Missing Modalities in Multimodal Dementia Prognosis,Firuz Kamalov,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35430,2026-10-27,1
+2610.35425,From Denoising Dynamics to Endpoint Uncertainty in Diffusion Language Models,Julio C. Amador Diaz Lopez,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35425,2026-10-27,2
+2610.35403,NeSySpec: Neuro-Symbolic Technical Intelligence for Auditing Engineering Specifications with an Application to Aircraft,Pier Mattia Basciano,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35403,2026-10-27,2
+2610.35400,AdaTrendLike: Adaptive Hierarchical Detrending and Trend Likelihood Scoring for Time Series Anomaly Detection,Van Kwan Zhi Koh,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35400,2026-10-27,2
+2610.35398,Belief-Conditioned Multi-Agent Actor Critic for Decentralized LLM Collaboration,Tianle Chen,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35398,2026-10-27,2
+2610.35316,RSIV-Harness: A Recursive Self-Improvement Harness Framework for Open-Domain Conversational Text-to-Visualization,Jiawei Lu,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35316,2026-10-27,2
+2610.35298,LLM-Enhanced Heterogeneous Graph Learning with Business Semantics for Financial Fraud Detection,Yixuan Chen,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35298,2026-10-27,2
+2610.35294,Application of Artificial Intelligence in the Management of Climate Change-Related Health Issues in Africa,Peter Kokol,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35294,2026-10-27,2
+2610.35293,AgenticCity-Bench: Longitudinal Multimodal Observations of Urban Dynamics with Agentic Reasoning,Xiaofei Yu,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35293,2026-10-27,2
+2610.35288,Proof-of-Agentness: Towards Verifying Agents on the Web,Zuyao Xu,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35288,2026-10-27,2
+2610.35280,"Self-Supervised Pretraining for PHM: What Transfers, What Does Not, and What Federating It Costs",José Sanz-Durán,Artificial Intelligence (cs.AI),https://arxiv.org/abs/2610.35280,2026-10-27,2
