@@ -4,6 +4,8 @@ Escolhi buscar artigos de inteligência artificial no arXiv: https://arxiv.org/l
 
 Usei requests para acessar as páginas, BeautifulSoup para pegar as informações do HTML e pandas para salvar tudo em CSV. O programa busca título, autor, área e link dos artigos. Para passar de página ele usa os parâmetros skip e show, e também evita registros repetidos.
 
+No HTML usei #dlpage dl dt para achar os artigos, e div.list-title, div.list-authors e div.list-subjects para pegar os dados. Se tiver classe extra ou algum campo faltando, o código tenta tratar isso sem misturar os artigos.
+
 Para rodar no computador, abra o terminal na pasta do projeto e execute:
 
 python -m pip install -r requirements.txt
